@@ -4,8 +4,8 @@ import jakarta.persistence.*
 
 @Table
 @Entity
-class UserServiceRating (
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+class UserVendorRating (
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
     val rating: Double,
     val comment: String?=null,
@@ -15,5 +15,5 @@ class UserServiceRating (
     val user: User,
     @ManyToOne
     @JoinColumn(name = "user_service_id", nullable = false)
-    val userService: UserService,
+    val userVendor: UserVendor,
 )

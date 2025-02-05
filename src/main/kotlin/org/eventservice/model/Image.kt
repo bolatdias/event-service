@@ -7,7 +7,7 @@ import jakarta.persistence.*
 @Entity
 class Image(
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     @ManyToOne
     @JoinColumn(name = "place_id", nullable = false)

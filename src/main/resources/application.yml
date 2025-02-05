@@ -1,39 +1,44 @@
-  server:
-    port: 8085
+server:
+  port: 8085
 
-  eureka:
-    instance:
-      hostname: localhost
-    client:
-      register-with-eureka: true
-      fetch-registry: true
-      service-url:
-        default-zone: http://localhost:8761/eureka
-
-
-  spring:
-    application:
-      name: event-service
-    datasource:
-      url: "jdbc:mysql://localhost:3306/db?serverTimezone=UTC"
-      username: "user"
-      password: "password"
-      driver-class-name: "com.mysql.cj.jdbc.Driver"  # MySQL driver
-
-    graphql:
-      path: /graphql
-      graphiql:
-        enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
 
 
-    jpa:
-      show-sql: true
-      hibernate:
-        ddl-auto: update
-        dialect: org.hibernate.dialect.MySQL5Dialect
-      defer-datasource-initialization: true
+spring:
+  application:
+    name: event-service
+  datasource:
+    url: "jdbc:mysql://localhost:3306/db?serverTimezone=UTC"
+    username: "user"
+    password: "password"
+    driver-class-name: "com.mysql.cj.jdbc.Driver"  # MySQL driver
 
-    sql:
-      init:
-        mode: "always"
+  graphql:
+    path: /events/graphql
+    graphiql:
+      enabled: true
 
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5Dialect
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: "always"
+
+app:
+  cors:
+    allowedOrigins: http://localhost:8080
+  jwtExpirationInMs: 604800000
+  jwtSecret: 9a02115a835ee03d5fb83cd8a468ea33e4090aaaec87f53c9fa54512bbef4db8dc656c82a315fa0c785c08b0134716b81ddcd0153d2a7556f2e154912cf5675f

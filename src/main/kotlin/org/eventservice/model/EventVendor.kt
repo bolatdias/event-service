@@ -1,12 +1,13 @@
 package org.eventservice.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 
-@Table
+@Table(name = "event_service")
 @Entity
-class EventService(
+class EventVendor(
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
     val cost: Float,
 
@@ -16,5 +17,5 @@ class EventService(
     val event: Event,
     @ManyToOne
     @JoinColumn(name = "user_service_id", nullable = false)
-    val userService: UserService
+    val userVendor: UserVendor
 )

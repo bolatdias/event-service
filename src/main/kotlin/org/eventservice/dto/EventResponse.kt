@@ -1,8 +1,7 @@
 package org.eventservice.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.eventservice.model.EventService
-import org.eventservice.model.Place
+import org.eventservice.model.EventVendor
 import org.eventservice.model.User
 import java.time.LocalDateTime
 
@@ -17,5 +16,5 @@ class EventResponse(
     var place: PlaceResponse? = null,
     var user: User? = null,
     @JsonProperty("event_services")
-    val eventServices: List<EventService> = listOf(),
+    val eventServices: List<EventVendor> = listOf(),
 )

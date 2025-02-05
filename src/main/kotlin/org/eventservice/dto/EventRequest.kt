@@ -17,8 +17,6 @@ data class EventRequest(
     val description: String? = null,
     @JsonProperty("hall_id")
     val hallId: Long,
-    @JsonProperty("user_id")
-    val userId: Long,
 
     @JsonProperty("event_services")
     val eventServices: List<EventServiceRequest> = emptyList()
@@ -26,5 +24,5 @@ data class EventRequest(
 
 class EventServiceRequest(
     @JsonProperty("id")
-    val id: Long,
+    val id: Long
 )

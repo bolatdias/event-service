@@ -1,5 +1,6 @@
 package org.eventservice.model
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 
 
@@ -7,7 +8,7 @@ import jakarta.persistence.*
 @Table
 class Place(
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
     val title: String,
     val city: String?,

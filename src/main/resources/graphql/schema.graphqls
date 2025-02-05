@@ -1,16 +1,197 @@
+# Queries
 type Query {
-    bookById(id: ID): Book
+  getCurrentUser: User!
+}
+# Mutations
+type Mutation {
+  createEvent(request: EventRequestInput!): Event!
+  updateEvent(id: ID!, request: EventRequestInput!): Event!
+  deleteEvent(id: ID!): String!
+}
+# Event-related Types
+type Event {
+  id: ID!
+  title: String!
+  startedAt: String
+  endedAt: String
+  description: String
+  hall: Hall!
+  user: User!
+  eventServices: [EventVendor!]!
 }
 
-type Book {
-    id: ID
-    name: String
-    pageCount: Int
-    author: Author
+input EventRequestInput {
+  title: String!
+  startedAt: String
+  endedAt: String
+  description: String
+  hallId: ID!
+  eventServices: [EventVendorRequestInput!]!
 }
 
-type Author {
-    id: ID
-    firstName: String
-    lastName: String
+type EventVendor {
+  id: ID!
+  cost: Float!
+  event: Event!
+  userVendor: UserVendor!
+}
+
+input EventVendorRequestInput {
+  id: ID!
+}
+
+# Hall-related Types
+type Hall {
+  id: ID!
+  title: String!
+  description: String
+  cost: Float
+  place: Place!
+  events: [Event!]!
+}
+
+input HallRequestInput {
+  title: String!
+  description: String
+  cost: Float
+  placeId: ID!
+}
+
+# Place-related Types
+type Place {
+  id: ID!
+  title: String!
+  city: String
+  street: String
+  description: String
+  halls: [Hall!]!
+  placeRatings: [PlaceRating!]!
+  images: [Image!]!
+  owner: User!
+}
+
+input PlaceRequestInput {
+  title: String!
+  city: String
+  street: String
+  description: String
+  ownerId: ID!
+}
+
+type PlaceRating {
+  id: ID!
+  rating: Float!
+  comment: String
+  user: User!
+  place: Place!
+}
+
+input PlaceRatingInput {
+  rating: Float!
+  comment: String
+  userId: ID!
+  placeId: ID!
+}
+
+type Image {
+  id: ID!
+  url: String!
+  place: Place!
+}
+
+# User & Role Types
+type User {
+  id: ID!
+  name: String!
+  username: String!
+  email: String!
+  roles: [Role]
+  events: [Event]
+  places: [Place]
+  socialMedia: [SocialMedia]
+  userVendors: [UserVendor]
+}
+
+type Role {
+  id: ID!
+  name: RoleName!
+}
+
+enum RoleName {
+  ROLE_USER
+  ROLE_ADMIN
+  ROLE_COMPANY
+}
+
+# Social Media Types
+type SocialMedia {
+  id: ID!
+  user: User!
+  url: String!
+  socialMediaType: SocialMediaType!
+}
+
+enum SocialMediaType {
+  WHATS_UP
+  TELEGRAM
+  INSTAGRAM
+  OTHERS
+}
+
+# User Vendor Types
+type UserVendor {
+  id: ID!
+  title: String!
+  description: String
+  experience: String
+  averageCost: Float
+  owner: User!
+  serviceType: ServiceTypeEnum!
+  userVendorRatings: [UserVendorRating!]!
+}
+
+input UserVendorInput {
+  title: String!
+  description: String
+  experience: String
+  averageCost: Float
+  ownerId: ID!
+  serviceType: ServiceTypeEnum!
+}
+
+type UserVendorRating {
+  id: ID!
+  rating: Float!
+  comment: String
+  user: User!
+  userVendor: UserVendor!
+}
+
+input UserVendorRatingInput {
+  rating: Float!
+  comment: String
+  userId: ID!
+  userVendorId: ID!
+}
+
+enum ServiceTypeEnum {
+  PRESENTERS,
+  SINGERS,
+  DANCERS,
+  GROUP,
+  OPERATORS,
+  PHOTOGRAPH,
+  MOBILOGRAPH,
+  TRANSPORT,
+  DECORATORS,
+  ANIMATORS,
+  TECHNICAL_STAFF,
+  SECURITY,
+  SOUND_ENGINEERS,
+  MEDICAL_WORKERS,
+  STYLISTS,
+  TECHNICAL_EQUIPMENT,
+  HAIR_DRESSERS,
+  CLOTHING_SUPPLIERS,
+  FLOWER_SUPPLIERS
 }
