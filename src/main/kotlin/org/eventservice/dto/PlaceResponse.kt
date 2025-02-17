@@ -9,6 +9,4 @@ class PlaceResponse(
     val city: String?,
     val street: String?,
     val description: String?,
-    val events: List<Event> = listOf(),
-    val images: List<HallImage> = listOf(),
 )

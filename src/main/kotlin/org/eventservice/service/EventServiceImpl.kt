@@ -16,6 +16,7 @@ interface EventService {
     fun update(request: EventRequest, id: Long, user: User): EventResponse
     fun deleteEvent(id: Long, user: User)
     fun getEvent(id: Long): EventResponse
+    fun getPopularEvents(limit: Long): List<EventResponse>
 }
 
 
@@ -90,6 +91,12 @@ class EventServiceImpl(
             RuntimeException("Event not found")
         }
         return EventMapper.mapToResponse(event)
+    }
+
+    override fun getPopularEvents(limit: Long): List<EventResponse> {
+        return eventRepository.findAll().map {
+            EventMapper.mapToResponse(it)
+        }
     }
 
 }
