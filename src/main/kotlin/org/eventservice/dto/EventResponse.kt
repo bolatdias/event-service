@@ -8,13 +8,9 @@ import java.time.LocalDateTime
 class EventResponse(
     val id: Long = 0,
     val title: String,
-    @JsonProperty("started_at")
     val startedAt: LocalDateTime? = null,
-    @JsonProperty("ended_at")
     val endedAt: LocalDateTime? = null,
     val description: String? = null,
-    var place: PlaceResponse? = null,
-    var user: User? = null,
-    @JsonProperty("event_services")
-    val eventServices: List<EventVendor> = listOf(),
+    var hall: HallResponse? = null,
+    val eventServices: List<UserVendorResponse> = listOf(),
 )

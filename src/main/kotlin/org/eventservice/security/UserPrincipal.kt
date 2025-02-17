@@ -9,7 +9,6 @@ import java.util.*
 
 class UserPrincipal(
     val id: Long,
-    val name: String?,
     private val username: String,
     val email: String?,
     private val password: String,
@@ -66,7 +65,6 @@ class UserPrincipal(
 
             return UserPrincipal(
                 user.id,
-                user.name,
                 user.username,
                 user.email,
                 user.password,

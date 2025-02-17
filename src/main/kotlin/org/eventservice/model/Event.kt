@@ -1,5 +1,6 @@
 package org.eventservice.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 import java.time.LocalDateTime
@@ -18,7 +19,6 @@ class Event(
     @ManyToOne
     @JoinColumn(name = "hall_id", nullable = false)
     var hall: Hall? = null,
-
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

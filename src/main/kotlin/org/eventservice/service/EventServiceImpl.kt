@@ -2,12 +2,21 @@ package org.eventservice.service
 
 import jakarta.transaction.Transactional
 import org.eventservice.dto.EventRequest
+import org.eventservice.dto.EventResponse
 import org.eventservice.model.Event
 import org.eventservice.model.EventVendor
 import org.eventservice.model.User
 import org.eventservice.repository.*
 import org.eventservice.utils.EventMapper
+import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
+
+interface EventService {
+    fun createEvent(request: EventRequest, user: User): EventResponse
+    fun update(request: EventRequest, id: Long, user: User): EventResponse
+    fun deleteEvent(id: Long, user: User)
+    fun getEvent(id: Long): EventResponse
+}
 
 
 @Service
@@ -17,10 +26,10 @@ class EventServiceImpl(
     private val userVendorRepository: UserVendorRepository,
     private val userRepository: UserRepository,
     private val hallRepository: HallRepository
-) {
+) : EventService {
 
     @Transactional
-    fun createEvent(request: EventRequest, user: User): Event {
+    override fun createEvent(request: EventRequest, user: User): EventResponse {
         var event = EventMapper.mapToModel(request)
 
         val user = userRepository.findById(1).orElseThrow { RuntimeException("User not found") }
@@ -38,17 +47,13 @@ class EventServiceImpl(
             )
         }
 
-        return eventRepository.save(event)
+        return EventMapper.mapToResponse(eventRepository.save(event))
     }
 
 
-    fun update(request: EventRequest, id: Long, user: User): Event {
+    override fun update(request: EventRequest, id: Long, user: User): EventResponse {
         val event = eventRepository.findById(id).orElseThrow {
             RuntimeException("Event not found")
-        }
-
-        if (event.user != user) {
-            throw RuntimeException("User don't have permision")
         }
 
         val userServices = userVendorRepository.findAllByIds(request.eventServices.map { it.id })
@@ -68,20 +73,23 @@ class EventServiceImpl(
         val hall = hallRepository.findById(request.hallId).orElseThrow { RuntimeException("Place not found") }
         event.hall = hall
 
-        return eventRepository.save(event)
+        return EventMapper.mapToResponse(eventRepository.save(event))
     }
 
 
-    fun deleteEvent(id: Long, user: User) {
+    override fun deleteEvent(id: Long, user: User) {
         val event = eventRepository.findById(id).orElseThrow {
             RuntimeException("Event not found")
         }
 
-        if (event.user != user) {
-            throw RuntimeException("User don't have permision")
-        }
-
         eventRepository.deleteById(id)
+    }
+
+    override fun getEvent(id: Long): EventResponse {
+        val event = eventRepository.findById(id).orElseThrow {
+            RuntimeException("Event not found")
+        }
+        return EventMapper.mapToResponse(event)
     }
 
 }

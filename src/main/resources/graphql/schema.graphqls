@@ -105,11 +105,6 @@ type User {
   name: String!
   username: String!
   email: String!
-  roles: [Role]
-  events: [Event]
-  places: [Place]
-  socialMedia: [SocialMedia]
-  userVendors: [UserVendor]
 }
 
 type Role {

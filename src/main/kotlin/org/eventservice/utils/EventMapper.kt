@@ -16,11 +16,18 @@ object EventMapper {
     }
 
     fun mapToResponse(event:Event): EventResponse {
+        val hallResponse = HallMapper.mapToResponse(event.hall!!)
+        val userVendorResponse = event.eventServices.map{
+            UserVendorMapper.mapToResponse(it.userVendor)
+        }
+
         return EventResponse(
             title = event.title,
             startedAt = event.startedAt,
             endedAt = event.endedAt,
-            description = event.description
+            description = event.description,
+            hall = hallResponse,
+            eventServices = userVendorResponse,
         )
     }
 }

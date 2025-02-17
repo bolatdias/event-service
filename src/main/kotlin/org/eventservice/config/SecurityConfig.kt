@@ -53,7 +53,7 @@ class SecurityConfig(
             }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/api/**", "api/auth/refresh", "/error").permitAll()
+                    .requestMatchers("/**","/event-service/graphiql" ,"api/auth/refresh", "/error").permitAll()
                     .requestMatchers("/swagger-ui/**", "/v3/api-docs*/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/user").permitAll()
                     .requestMatchers("/api/user**").hasRole("ADMIN")

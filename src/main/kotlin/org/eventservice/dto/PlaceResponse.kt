@@ -1,8 +1,7 @@
 package org.eventservice.dto
 
 import org.eventservice.model.Event
-import org.eventservice.model.Image
-import org.eventservice.model.User
+import org.eventservice.model.HallImage
 
 class PlaceResponse(
     val id: Long = 0,
@@ -11,6 +10,5 @@ class PlaceResponse(
     val street: String?,
     val description: String?,
     val events: List<Event> = listOf(),
-    val images: List<Image> = listOf(),
-    val user: User
+    val images: List<HallImage> = listOf(),
 )

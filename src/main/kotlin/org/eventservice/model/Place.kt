@@ -14,13 +14,11 @@ class Place(
     val city: String?,
     val street: String?,
     val description: String?,
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "place", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
     val halls: List<Hall> = listOf(),
     @OneToMany(mappedBy = "place", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
     val placeRatings: List<PlaceRating> = listOf(),
-    @OneToMany(mappedBy = "place", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
-    val images: List<Image> = listOf(),
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     val user: User

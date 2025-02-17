@@ -1,5 +1,6 @@
 package org.eventservice.model
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 
 
@@ -19,6 +20,7 @@ class UserVendor(
     @Enumerated(EnumType.STRING)
     val serviceType: ServiceTypeEnum,
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "userVendor", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
     val userVendorRating: List<UserVendorRating> = listOf(),
 )

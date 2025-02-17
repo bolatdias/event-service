@@ -1,3 +1,6 @@
+ALTER DATABASE your_database_name CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+INSERT INTO db.roles (name) VALUES ('ROLE_USER');
+
 INSERT INTO user_vendor (title, description, experience, average_cost, owner_id, service_type)
 VALUES ('Almaty Event Masters', 'Ұйымдастыру қызметтері', '10 жыл', 750000.00, 1, 'Presenters'),
        ('Astana Stars', 'Тойлар мен мерекелерге әншілер', '8 жыл', 500000.00, 1, 'Singers'),

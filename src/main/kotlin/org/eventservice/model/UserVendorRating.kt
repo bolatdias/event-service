@@ -1,5 +1,6 @@
 package org.eventservice.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 
 @Table
@@ -13,6 +14,7 @@ class UserVendorRating (
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     val user: User,
+
     @ManyToOne
     @JoinColumn(name = "user_service_id", nullable = false)
     val userVendor: UserVendor,
