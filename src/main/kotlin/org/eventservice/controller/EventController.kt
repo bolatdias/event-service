@@ -13,6 +13,7 @@ import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.security.access.annotation.Secured
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
@@ -23,24 +24,22 @@ class EventController(
     private val userRepository: UserRepository
 ) {
 
-    @Secured
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/create-event")
     fun createEvent(@RequestBody request: EventRequest, @CurrentUser currentUser: UserPrincipal): EventResponse {
         val user = userRepository.findById(currentUser.id).orElseThrow { RuntimeException("User not found") }
         return eventService.createEvent(request, user)
     }
-
-    @Secured
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PutMapping("/update-event/{id}")
     fun updateEvent(@PathVariable id: Long, @RequestBody request: EventRequest, @CurrentUser currentUser: UserPrincipal): EventResponse {
         val user = userRepository.findById(currentUser.id).orElseThrow { RuntimeException("User not found") }
         return eventService.update(request, id, user)
     }
-
-    @Secured
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @DeleteMapping("/delete-event/{id}")
-    fun deleteEvent(@PathVariable id: Long, @CurrentUser currentUser: UserPrincipal): String {
-        val user = userRepository.findById(currentUser.id).orElseThrow { RuntimeException("User not found") }
+    fun deleteEvent(@PathVariable id: Long): String {
+        val user = userRepository.findById(2).orElseThrow { RuntimeException("User not found") }
         eventService.deleteEvent(id, user)
         return "Event deleted successfully"
     }

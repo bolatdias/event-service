@@ -79,10 +79,6 @@ class EventServiceImpl(
 
 
     override fun deleteEvent(id: Long, user: User) {
-        val event = eventRepository.findById(id).orElseThrow {
-            RuntimeException("Event not found")
-        }
-
         eventRepository.deleteById(id)
     }
 
